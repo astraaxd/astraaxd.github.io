@@ -11,5 +11,5 @@ or, if its not in beta anymore:
 
 (if none of those work click one of these)
 
-[Hypercraft Beta Release (fixed link)](https://hypercraftgame.github.io/releases/release.html)
-[Hypercraft Full Release (fixed link)](https://hypercraftgame.github.io/beta-releases/beta1.5.2.html)
+[Hypercraft Beta Release (fixed link)](https://hypercraftgame.github.io/beta-releases/beta1.5.2.html)
+[Hypercraft Full Release (fixed link)](https://hypercraftgame.github.io/releases/release.html)
