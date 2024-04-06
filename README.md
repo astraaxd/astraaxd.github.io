@@ -2,14 +2,14 @@
 
 Play the game here!!
 
-https://hypercraftgame.github.io/beta
+[hypercraftgame.github.io/beta-releases/beta](https://hypercraftgame.github.io/beta-releases/beta)
 
 or, if its not in beta anymore:
 
-https://hypercraftgame.github.io/release
+[hypercraftgame.github.io/releases/release](https://hypercraftgame.github.io/releases/release)
 
 
 (if none of those work click one of these)
 
-https://hypercraftgame.github.io/release.html
-https://hypercraftgame.github.io/beta.html
+[hypercraftgame.github.io/releases/release.html](https://hypercraftgame.github.io/releases/release.html)
+[hypercraftgame.github.io/beta-releases/beta.html](https://hypercraftgame.github.io/beta-releases/beta.html)
