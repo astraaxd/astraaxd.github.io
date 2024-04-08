@@ -1,15 +1,15 @@
-# Hyper Craft
+# ChromebookCraft
 
-Play the game here!!
+UN Official minecraft port to chromebooks and others (web craft?)
 
-[Hypercraft Beta Release](https://hypercraftgame.github.io/beta-releases/beta1.0.1)
+[ChromebookCraft Beta Release](https://chromebookcraft.github.io/beta-releases/beta1.0.1)
 
 or, if its not in beta anymore:
 
-[Hypercraft Full Release](https://hypercraftgame.github.io/releases/release)
+[ChromebookCraft Full Release](https://chromebookcraft.github.io/releases/release)
 
 
 (if none of those work click one of these)
 
-[Hypercraft Beta Release (fixed link)](https://hypercraftgame.github.io/beta-releases/beta1.0.1.html)
-[Hypercraft Full Release (fixed link)](https://hypercraftgame.github.io/releases/release.html)
+[Hypercraft Beta Release (fixed link)](https://chromebookcraft.github.io/beta-releases/beta1.0.1.html)
+[Hypercraft Full Release (fixed link)](https://chromebookcraft.github.io/releases/release.html)
