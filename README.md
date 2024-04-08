@@ -13,3 +13,5 @@ or, if its not in beta anymore:
 
 [Hypercraft Beta Release (fixed link)](https://chromebookcraft.github.io/beta-releases/beta1.0.3.html)
 [Hypercraft Full Release (fixed link)](https://chromebookcraft.github.io/releases/release.html)
+
+ok deployment is a lil broken
