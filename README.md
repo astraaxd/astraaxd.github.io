@@ -1,16 +1,3 @@
-# Hypercraft
+# Taggers Productions
 
-NON OFFICIAL minecraft port to github and others (web craft?)
-
-
-
-
-
-
-
-
-PLEASE DONT LEAK THIS OR SHARE IT WITH ANYONE UNLESS GIVEN ACCESS TO
-
-
-
-[Hypercraft Full Release](https://hypercraftgame.github.io/releases/release)
+Just a website I have to upload htmls for my school unblocker (working)
