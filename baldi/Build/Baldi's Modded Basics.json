@@ -1,0 +1,16 @@
+{
+"companyName": "Taggers Productions",
+"productName": "Baldi's Modded Basics",
+"productVersion": "1.4.3",
+"dataUrl": "Baldi's Modded Basics.data.unityweb",
+"wasmCodeUrl": "Baldi's Modded Basics.wasm.code.unityweb",
+"wasmFrameworkUrl": "Baldi's Modded Basics.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#000000",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.2.8f1"
+}
