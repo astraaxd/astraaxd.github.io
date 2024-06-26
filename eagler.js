@@ -1,0 +1,17 @@
+const overlay = document.createElement('div');
+overlay.style.position = 'fixed';
+overlay.style.top = '0';
+overlay.style.left = '0';
+overlay.style.width = '100%';
+overlay.style.height = '100%';
+overlay.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+overlay.style.display = 'flex';
+overlay.style.justifyContent = 'center';
+overlay.style.alignItems = 'center';
+overlay.style.zIndex = '10000';
+const text = document.createElement('div');
+text.textContent = 'eagler :>';
+text.style.fontSize = '3em';
+text.style.color = 'black';
+overlay.appendChild(text);
+document.body.appendChild(overlay);
