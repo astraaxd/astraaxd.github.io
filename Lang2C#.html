@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lang2C#</title>
+</head>
+<body>
+    <h1>Lang2C# Converter</h1>
+    <p>Upload your script and click Convert to painfully convert it into C#!</p>
+    <p>(You may need to tweak the converted script a bit to actually work with C#)</p>
+    <label for="fileInput">Select a file:</label>
+    <input type="file" id="fileInput" accept=".py, .js, .cpp, .java, .bat, .html" onchange="handleFileSelect(event)">
+    <br><br>
+    
+    <textarea id="originalScript" placeholder="Paste or upload your script here..."></textarea>
+    <br>
+    
+    <select id="languageSelect">
+        <option value="python">Python</option>
+        <option value="javascript">JavaScript</option>
+        <option value="cpp">C++</option>
+        <option value="java">Java</option>
+        <option value="batch">Batch</option>
+        <option value="html">HTML</option>
+    </select>
+    
+    <button onclick="convertToCSharp()">Convert</button>
+    <a id="downloadLink" style="display: none;" download="converted_script.cs">Download scip :D</a>
+    
+    <script>
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('originalScript').value = e.target.result;
+            };
+            reader.readAsText(file);
+        }
+
+        function convertToCSharp() {
+            const originalScript = document.getElementById('originalScript').value;
+            const selectedLanguage = document.getElementById('languageSelect').value;
+            
+            let csScript = '';
+            
+            switch (selectedLanguage) {
+                case 'python':
+                    csScript = convertPythonToCSharp(originalScript);
+                    break;
+                case 'javascript':
+                    csScript = convertJavaScriptToCSharp(originalScript);
+                    break;
+                case 'cpp':
+                    csScript = convertCppToCSharp(originalScript);
+                    break;
+                case 'java':
+                    csScript = convertJavaToCSharp(originalScript);
+                    break;
+                case 'batch':
+                    csScript = convertBatchToCSharp(originalScript);
+                    break;
+                case 'html':
+                    csScript = convertHtmlToCSharp(originalScript);
+                    break;
+                default:
+                    alert('Unsupported language.');
+                    return;
+            }
+            const formattedScript = formatCSharpScript(csScript);
+
+            const timestamp = new Date().toLocaleString();
+            const finalScript = `using System;
+
+public class Converted
+{
+${formattedScript}
+}
+/* Created using Lang2C# Converter
+ * File created on ${timestamp}
+ */`;
+            const blob = new Blob([finalScript], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const downloadLink = document.getElementById('downloadLink');
+            downloadLink.href = url;
+            downloadLink.style.display = 'inline-block';
+        }
+
+        function formatCSharpScript(script) {
+            const lines = script.split('\n').map(line => line.trim());
+            let formattedScript = '';
+            let currentIndent = 1;
+
+            lines.forEach(line => {
+                if (line.startsWith('}') || line.startsWith('} else')) {
+                    currentIndent--;
+                }
+
+                formattedScript += '    '.repeat(currentIndent) + line + '\n';
+
+                if (line.endsWith('{')) {
+                    currentIndent++;
+                }
+            });
+
+            return formattedScript;
+        }
+
+        function convertPythonToCSharp(pythonScript) {
+            let csScript = pythonScript;
+            
+            csScript = csScript.replace(/import/g, 'using');
+            csScript = csScript.replace(/def\s+(\S+)\s*\(/g, 'void $1(');
+            csScript = csScript.replace(/self/g, 'this');
+            csScript = csScript.replace(/True/g, 'true');
+            csScript = csScript.replace(/False/g, 'false');
+            csScript = csScript.replace(/None/g, 'null');
+            
+            csScript = csScript.replace(/class\s+(\w+)/g, 'class $1');
+            
+            csScript = csScript.replace(/\[([^\]]*)\]/g, 'new List<$1>');
+            
+            return csScript;
+        }
+
+        function convertJavaScriptToCSharp(jsScript) {
+            let csScript = jsScript;
+            
+            csScript = csScript.replace(/\blet\b/g, 'var');
+            csScript = csScript.replace(/const\s+(\S+)\s*=\s*\(([\s\S]*?)\)\s*=>\s*\{/g, 'void $1($2) {');
+            csScript = csScript.replace(/console\.log/g, 'Console.WriteLine');
+            
+            csScript = csScript.replace(/import\s+(\w+)\s+from\s+'([^']+)'/g, 'using $1;');
+            
+            return csScript;
+        }
+
+        function convertCppToCSharp(cppScript) {
+            let csScript = cppScript;
+            
+            csScript = csScript.replace(/cout\s*<<\s*/g, 'Console.WriteLine(');
+            csScript = csScript.replace(/std::/g, '');
+            
+            csScript = csScript.replace(/class\s+(\w+)/g, 'class $1');
+            
+            csScript = csScript.replace(/(\w+)\s*\*\s*(\w+)/g, '$1 $2');
+            
+            return csScript;
+        }
+
+        function convertJavaToCSharp(javaScript) {
+            let csScript = javaScript;
+            
+            csScript = csScript.replace(/public static void/g, 'public static void');
+            csScript = csScript.replace(/System\.out\.println/g, 'Console.WriteLine');
+            csScript = csScript.replace(/new\s+(\w+)\(/g, 'new $1(');
+            
+            csScript = csScript.replace(/class\s+(\w+)/g, 'class $1');
+            
+            return csScript;
+        }
+
+        function convertBatchToCSharp(batchScript) {
+            let csScript = batchScript;
+            
+            csScript = csScript.replace(/echo/g, 'Console.WriteLine');
+            csScript = csScript.replace(/set\s+(\w+)\s*=/g, 'var $1 =');
+            
+            csScript = csScript.replace(/%(\w+)%/g, '%$1%');
+            
+            return csScript;
+        }
+
+        function convertHtmlToCSharp(htmlScript) {
+            let csScript = htmlScript;
+            
+            csScript = csScript.replace(/<html>/g, 'namespace MyNamespace {');
+            csScript = csScript.replace(/<\/html>/g, '}');
+            
+            csScript = csScript.replace(/<head>/g, 'public class Head {');
+            csScript = csScript.replace(/<\/head>/g, '}');
+            
+            csScript = csScript.replace(/<body>/g, 'public static void Main(string[] args) {');
+            csScript = csScript.replace(/<\/body>/g, '}');
+            
+            csScript = csScript.replace(/<script>([\s\S]*?)<\/script>/g, 'public void ScriptMethod() { $1 }');
+            
+            csScript = csScript.replace(/<div([^>]*)>/g, 'public class Div$1 {');
+            csScript = csScript.replace(/<\/div>/g, '}');
+            
+            csScript = csScript.replace(/<p([^>]*)>/g, 'public class Paragraph$1 {');
+            csScript = csScript.replace(/<\/p>/g, '}');
+            
+            csScript = csScript.replace(/<span([^>]*)>/g, 'public class Span$1 {');
+            csScript = csScript.replace(/<\/span>/g, '}');
+            
+            csScript = csScript.replace(/id="([^"]*)"/g, 'public string Id { get; set; }');
+            
+            return csScript;
+        }
+    </script>
+</body>
+</html>
