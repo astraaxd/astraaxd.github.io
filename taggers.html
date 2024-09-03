@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Status and MOTD</title>
+    <style>
+        body {
+            background: linear-gradient(to top, yellow, black);
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        .status, .motd {
+            margin-bottom: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer; /* Add cursor pointer for clickable effect */
+        }
+        
+        .status p span, .motd p span {
+            font-weight: bold;
+        }
+
+        .status-checking span {
+            color: grey;
+        }
+
+        .status-working span {
+            color: lime;
+        }
+
+        .status-not-working span {
+            color: red;
+        }
+
+        .motd-content {
+            color: #eee; /* Light color for visibility */
+        }
+
+        .monke-count {
+            margin-top: 20px;
+            background-color: #444;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Project Taggers Information</h1>
+        <div id="status" class="status status-checking">
+            <h2>Server Status</h2>
+            <p>If the servers are currently running, or if they aren't!</p>
+            <p>Status: <span id="statusText">Click to Check Status</span></p>
+            <div id="monkeCount" class="monke-count">Number of Monke: Loading...</div>
+        </div>
+        <div id="motd" class="motd">
+            <h2>Message of the Day</h2>
+            <p id="motdContent">Click to Load MOTD</p>
+        </div>
+    </div>
+
+    <script>
+        const statusUrl = 'https://api.codetabs.com/v1/proxy/?quest=https://raw.githubusercontent.com/astraaxd/ProjectTaggersAPI/main/Taggers_ShouldServersBeDown.txt';
+        const motdUrl = 'https://api.codetabs.com/v1/proxy/?quest=https://raw.githubusercontent.com/astraaxd/ProjectTaggersAPI/main/Taggers_MOTD.txt';
+        const monkeCountUrl = 'https://api.codetabs.com/v1/proxy/?quest=https://raw.githubusercontent.com/astraaxd/ProjectTaggersAPI/main/Taggers_MonkeCount.txt';
+
+        async function checkStatus() {
+            try {
+                const response = await fetch(statusUrl);
+                if (response.ok) {
+                    const text = await response.text();
+                    const statusElement = document.getElementById('status');
+                    const statusTextElement = document.getElementById('statusText');
+                    
+                    if (text.trim().toLowerCase() === 'false') {
+                        statusElement.classList.remove('status-checking', 'status-not-working');
+                        statusElement.classList.add('status-working');
+                        statusTextElement.textContent = 'Working';
+                    } else {
+                        statusElement.classList.remove('status-checking', 'status-working');
+                        statusElement.classList.add('status-not-working');
+                        statusTextElement.textContent = 'Not Working';
+                    }
+                } else {
+                    const statusElement = document.getElementById('status');
+                    const statusTextElement = document.getElementById('statusText');
+                    statusElement.classList.remove('status-checking', 'status-working');
+                    statusElement.classList.add('status-not-working');
+                    statusTextElement.textContent = 'Not Working';
+                }
+                await fetchMonkeCount();
+            } catch (error) {
+                console.error('Error checking server status:', error);
+                const statusElement = document.getElementById('status');
+                const statusTextElement = document.getElementById('statusText');
+                statusElement.classList.remove('status-checking', 'status-working');
+                statusElement.classList.add('status-not-working');
+                statusTextElement.textContent = 'Not Working';
+                await fetchMonkeCount();
+            }
+        }
+
+        async function fetchMOTD() {
+            try {
+                const response = await fetch(motdUrl);
+                if (response.ok) {
+                    const text = await response.text();
+                    console.log('MOTD content:', text);
+                    document.getElementById('motdContent').textContent = text.trim();
+                } else {
+                    document.getElementById('motdContent').textContent = 'Error loading message';
+                }
+            } catch (error) {
+                console.error('Error fetching MOTD:', error);
+                document.getElementById('motdContent').textContent = 'Error loading message';
+            }
+        }
+
+        async function fetchMonkeCount() {
+            try {
+                const response = await fetch(monkeCountUrl);
+                if (response.ok) {
+                    const text = await response.text();
+                    document.getElementById('monkeCount').textContent = 'Number of Monke: ' + text.trim();
+                } else {
+                    document.getElementById('monkeCount').textContent = 'Error loading monke count';
+                }
+            } catch (error) {
+                console.error('Error fetching monke count:', error);
+                document.getElementById('monkeCount').textContent = 'Error loading monke count';
+            }
+        }
+
+        document.getElementById('status').addEventListener('click', checkStatus);
+        document.getElementById('motd').addEventListener('click', fetchMOTD);
+
+        fetchMonkeCount();
+    </script>
+</body>
+</html>
