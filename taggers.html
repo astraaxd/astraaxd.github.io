@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Server Status and MOTD</title>
+    <title>oject aggers :3</title>
     <style>
         body {
             background: linear-gradient(to top, yellow, black);
@@ -126,7 +126,7 @@
                 const response = await fetch(motdUrl);
                 if (response.ok) {
                     const text = await response.text();
-                    console.log('MOTD content:', text);
+                    console.log('content gotten from uh all origins or hwatehver:', text);
                     document.getElementById('motdContent').textContent = text.trim();
                 } else {
                     document.getElementById('motdContent').textContent = 'Error loading message';
@@ -137,25 +137,8 @@
             }
         }
 
-        async function fetchMonkeCount() {
-            try {
-                const response = await fetch(monkeCountUrl);
-                if (response.ok) {
-                    const text = await response.text();
-                    document.getElementById('monkeCount').textContent = 'Number of Monke: ' + text.trim();
-                } else {
-                    document.getElementById('monkeCount').textContent = 'Error loading monke count';
-                }
-            } catch (error) {
-                console.error('Error fetching monke count:', error);
-                document.getElementById('monkeCount').textContent = 'Error loading monke count';
-            }
-        }
-
         document.getElementById('status').addEventListener('click', checkStatus);
         document.getElementById('motd').addEventListener('click', fetchMOTD);
-
-        fetchMonkeCount();
     </script>
 </body>
 </html>
