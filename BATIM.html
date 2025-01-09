@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BATIM</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        #password-container {
+            text-align: center;
+        }
+        #password-container input {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        #password-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+            border: none;
+            background-color: #444;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        iframe {
+            position: fixed;
+            bottom: 1%;
+            right: 1%;
+            width: 99%;
+            height: 99%;
+            border: none;
+            margin: 0;
+            padding: 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="password-container">
+        <h1>This game is PASSWORD PROTECTED!</h1>
+        <input type="password" id="password-input" placeholder="Enter password">
+        <button id="submit-password">Submit</button>
+        <p id="error-message" style="color: red; display: none;">Incorrect password. Try again.</p>
+		<p>"Why did I, AstraaXD/Grayson/Demarcus Cousins IV make this game password protected?" So that little femboy skids like you (and me!) can't play it all you want.</p>
+		<p>Press the "F" key to fullscreen!!</p>
+    </div>
+<iframe allowtransparency="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true" allow="autoplay; fullscreen *; geolocation; microphone; camera; midi; monetization; xr-spatial-tracking; gamepad; gyroscope; accelerometer; xr; cross-origin-isolated; web-share" frameborder="0" allowfullscreen="true" scrolling="no" src="https://html-classic.itch.zone/html/12450115/BendyGL_1.5.0/index.html" id="game_drop"></iframe>
+<script>
+	window.addEventListener('beforeunload', (event) => {
+            event.preventDefault();
+            event.returnValue = '';
+        });
+        const correctPassword = "bendyislikecool";
+        const passwordInput = document.getElementById("password-input");
+        const submitButton = document.getElementById("submit-password");
+        const errorMessage = document.getElementById("error-message");
+        const passwordContainer = document.getElementById("password-container");
+        const iframe = document.getElementById("game_drop");
+
+        submitButton.onclick = function() {
+            if (passwordInput.value === correctPassword) {
+                passwordContainer.style.display = "none";
+                iframe.style.display = "block";
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+            } else {
+                errorMessage.style.display = "block";
+            }
+        };
+		
+		document.addEventListener('keydown', (event) => {
+    if (event.key === 'F' || event.key === 'f') {
+        if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+    }
+});
+
+		iframe.onclick = function() {
+		if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+		}
+    </script>
+</body>
+</html>
