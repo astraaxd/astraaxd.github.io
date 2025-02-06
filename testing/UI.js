@@ -196,7 +196,7 @@
                             keyClose && keyClose.toUpperCase(),
                         ]
                             .filter(Boolean)
-                            .join(" + ")} for quick disable\nClick and drag here`)(Settings.data.hide || { ctrl: true, key: "e" }, Settings.data.close || { ctrl: true, key: "x" }),
+                            .join(" + ")} for quick disable\nClick and drag here!`)(Settings.data.hide || { ctrl: true, key: "e" }, Settings.data.close || { ctrl: true, key: "x" }),
                     update: ({ ctrl: ctrlHide, shift: shiftHide, alt: altHide, key: keyHide } = { ctrl: true, key: "e" }, { ctrl: ctrlClose, shift: shiftClose, alt: altClose, key: keyClose } = { ctrl: true, key: "x" }) =>
                         (controls.innerText = `${[ctrlHide && "Ctrl", shiftHide && "Shift", altHide && "Alt", keyHide && keyHide.toUpperCase()].filter(Boolean).join(" + ")} to hide | ${[
                             ctrlClose && "Ctrl",
@@ -205,7 +205,7 @@
                             keyClose && keyClose.toUpperCase(),
                         ]
                             .filter(Boolean)
-                            .join(" + ")} for quick disable\nClick and drag here`),
+                            .join(" + ")} for quick disable\nClick and drag here!`),
                 })),
                 createElement("div", {
                     id: "credits",
@@ -229,7 +229,7 @@
                         fontWeight: "700",
                         userSelect: "text",
                     },
-                    innerHTML: "GitHub - AstraaXD",
+                    innerHTML: "GitHub - AstraaXD\nv1.1.0",
                     onclick: () => window.open("https://github.com/AstraaXD/", "_blank").focus(),
                 }),
                 (controlButtons = createElement(
@@ -897,7 +897,7 @@
                 },
                 {
                     name: "Host Any Gamemode",
-                    description: "Change the selected gamemode on the host settings page",
+                    description: "Change the selected gamemode on the host settings page.",
                     inputs: [
                         {
                             name: "Gamemode",
@@ -906,7 +906,7 @@
                         },
                     ],
                     run: function (type) {
-                        if (location.pathname != "/host/settings") return alert("Run this script on the host settings page");
+                        if (location.pathname != "/host/settings") return alert("You must run this on the host settings page!");
                         getStateNode().setState({ settings: { type } });
                     },
                 },
@@ -1018,7 +1018,7 @@
                 },
                 {
                     name: "Every Answer Correct",
-                    description: "Sets every answer to be correct",
+                    description: "Makes every anwer to a question the correct answer.",
                     run: function () {
                         const stateNode = getStateNode();
                         for (let i = 0; i < stateNode.freeQuestions.length; i++) {
@@ -1198,7 +1198,7 @@
                 },
                 {
                     name: "Reset Players Gold",
-                    description: "Sets a player's gold to 0",
+                    description: "Sets a player's gold to 0 (fun for trolling!!)",
                     inputs: [
                         {
                             name: "Player",
@@ -1219,7 +1219,7 @@
                 },
                 {
                     name: "Set Gold",
-                    description: "Sets amount of gold",
+                    description: "Sets your current amount of a gold.",
                     inputs: [
                         {
                             name: "Gold",
@@ -1237,7 +1237,7 @@
                 },
                 {
                     name: "Set Player's Gold",
-                    description: "Sets another player's gold",
+                    description: "Sets another player's gold.",
                     inputs: [
                         {
                             name: "Player",
@@ -1262,7 +1262,7 @@
                 },
                 {
                     name: "Swap Gold",
-                    description: "Swaps gold with someone",
+                    description: "Swaps gold with someone.",
                     inputs: [
                         {
                             name: "Player",
@@ -1294,7 +1294,7 @@
             hack: [
                 {
                     name: "Choice ESP",
-                    description: "Shows what each choice will give you",
+                    description: "Shows what each choice will give you.",
                     type: "toggle",
                     enabled: false,
                     data: null,
@@ -1324,7 +1324,7 @@
                 },
                 {
                     name: "Password ESP",
-                    description: "Highlights the correct password",
+                    description: "Highlights the correct password.",
                     type: "toggle",
                     enabled: false,
                     data: null,
@@ -1349,8 +1349,8 @@
                     },
                 },
                 {
-                    name: "Always Triple",
-                    description: "Always get triple crypto",
+                    name: "Always Triple Crypto",
+                    description: "Always get triple crypto!!!!",
                     type: "toggle",
                     enabled: false,
                     data: null,
@@ -1387,14 +1387,14 @@
                 },
                 {
                     name: "Remove Hack",
-                    description: "Removes an attacking hack",
+                    description: "Removes the current attacking hack.",
                     run: function () {
                         getStateNode().setState({ hack: "" });
                     },
                 },
                 {
                     name: "Set Crypto",
-                    description: "Sets crypto",
+                    description: "Sets your current amount of crypto to whatever.",
                     inputs: [
                         {
                             name: "Amount",
@@ -1412,7 +1412,7 @@
                 },
                 {
                     name: "Set Password",
-                    description: "Sets hacking password",
+                    description: "Sets your current password to a new one.",
                     inputs: [
                         {
                             name: "Custom Password",
@@ -1430,7 +1430,7 @@
                 },
                 {
                     name: "Steal Player's Crypto",
-                    description: "Steals all of someone's crypto",
+                    description: "Steals all of someone's crypto.",
                     inputs: [
                         {
                             name: "Player",
@@ -1497,7 +1497,7 @@
             fish: [
                 {
                     name: "Remove Distractions",
-                    description: "Removes distractions",
+                    description: "Removes the current distraction. (I have no clue if this works on the servers side!)",
                     type: "toggle",
                     enabled: false,
                     data: null,
@@ -1516,7 +1516,7 @@
                 },
                 {
                     name: "Frenzy",
-                    description: "Sets everyone to frenzy mode",
+                    description: "Sets everyone to frenzy mode.",
                     run: function () {
                         let stateNode = getStateNode();
                         stateNode.props.liveGameController.setVal({
@@ -1531,8 +1531,92 @@
                     },
                 },
                 {
+                    name: "Remove Frenzy",
+                    description: "Sets everyone to normal mode, removing the frenzy.",
+                    run: function () {
+                        let stateNode = getStateNode();
+                        stateNode.props.liveGameController.setVal({
+                            path: `c/${stateNode.props.client.name}`,
+                            val: {
+                                b: stateNode.props.client.blook,
+                                w: stateNode.state.weight,
+                                f: "Normal",
+                                s: false,
+                            },
+                        });
+                    },
+                },
+                {
+                name: "Always Frenzy",
+    description: "Always sets everyone to frenzy mode no matter what!",
+    type: "toggle",
+    enabled: false,
+    data: null,
+    run: function () {
+        if (!this.enabled) {
+            this.enabled = true;
+            this.data = setInterval(() => {
+                let stateNode = getStateNode();
+                let clientPath = `c/${stateNode.props.client.name}`;
+                
+                stateNode.props.liveGameController.getVal({ path: clientPath }, (currentVal) => {
+                    if (!currentVal || currentVal.f !== "Frenzy") {
+                        stateNode.props.liveGameController.setVal({
+                            path: clientPath,
+                            val: {
+                                b: stateNode.props.client.blook,
+                                w: stateNode.state.weight,
+                                f: "Frenzy",
+                                s: true,
+                            },
+                        });
+                    }
+                });
+            }, 50);
+        } else {
+            this.enabled = false;
+            clearInterval(this.data);
+            this.data = null;
+        }
+    }
+                },
+                {
+                    name: "Always Remove Frenzy",
+    description: "Continuously checks and removes frenzy mode if active!",
+    type: "toggle",
+    enabled: false,
+    data: null,
+    run: function () {
+        if (!this.enabled) {
+            this.enabled = true;
+            this.data = setInterval(() => {
+                let stateNode = getStateNode();
+                let clientPath = `c/${stateNode.props.client.name}`;
+                
+                stateNode.props.liveGameController.getVal({ path: clientPath }, (currentVal) => {
+                    if (currentVal && currentVal.f === "Frenzy") {
+                        stateNode.props.liveGameController.setVal({
+                            path: clientPath,
+                            val: {
+                                b: stateNode.props.client.blook,
+                                w: stateNode.state.weight,
+                                f: "Normal",
+                                s: false,
+                            },
+                        });
+                    }
+                });
+            }, 50);
+        } else {
+            this.enabled = false;
+            clearInterval(this.data);
+            this.data = null;
+        }
+    }
+                },
+                {
                     name: "Send Distraction",
-                    description: "Sends a distraction to everyone",
+                    description: "Sends a distraction to everyone.",
                     inputs: [
                         {
                             name: "Distraction",
@@ -1555,8 +1639,44 @@
                     },
                 },
                 {
+                    name: "Spaz Distractions",
+    description: "Rapidly sends and removes random distractions in a loop!",
+    type: "toggle",
+    enabled: false,
+    data: null,
+    distractions: ["Crab", "Jellyfish", "Frog", "Pufferfish", "Octopus", "Narwhal", "Megalodon", "Blobfish", "Baby Shark"],
+    run: function () {
+        if (!this.enabled) {
+            this.enabled = true;
+            this.data = setInterval(() => {
+                let stateNode = getStateNode();
+                let randomDistraction = this.distractions[Math.floor(Math.random() * this.distractions.length)];
+                
+                stateNode.props.liveGameController.setVal({
+                    path: `c/${stateNode.props.client.name}`,
+                    val: {
+                        b: stateNode.props.client.blook,
+                        w: stateNode.state.weight,
+                        f: randomDistraction,
+                        s: true,
+                    },
+                });
+                
+                setTimeout(() => {
+                    stateNode.setState({ party: "" });
+                }, 1500);
+                
+            }, 1600);
+        } else {
+            this.enabled = false;
+            clearInterval(this.data);
+            this.data = null;
+        }
+    }
+                },
+                {
                     name: "Set Lure",
-                    description: "Sets fishing lure (range 1 - 5)",
+                    description: "Sets your current fishing lure. (ranges from 1 - 5)",
                     inputs: [
                         {
                             name: "Lure (1 - 5)",
