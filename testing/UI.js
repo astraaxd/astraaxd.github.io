@@ -1466,28 +1466,39 @@
                 },
                 {
                     name: "Steal Everyone's Crypto",
-                    description: "Experimental method of stealing EVERYONES crypto.",
+                    description: "Experimental method of stealing EVERYONE'S crypto.",
                     run: function () {
                         let stateNode = getStateNode();
+                        let totalStolenCrypto = 0;
                         stateNode.props.liveGameController.getDatabaseVal("c", (players) => {
                             if (players) {
                                 Object.entries(players).forEach(([name, data]) => {
                                     if (name.toLowerCase() !== stateNode.props.client.name.toLowerCase()) {
                                         const cr = data.cr;
-                                        stateNode.setState(prevState => ({
-                                            crypto: prevState.crypto + cr,
-                                            crypto2: prevState.crypto + cr,
-                                        }));
+                                        totalStolenCrypto += cr
                                         stateNode.props.liveGameController.setVal({
                                             path: "c/" + name,
                                             val: {
                                                 b: data.blook,
-                                                p: stateNode.state.password,
-                                                cr: stateNode.state.crypto + cr,
-                                                tat: name + ":" + cr,
+                                                p: data.password,
+                                                cr: 0,
+                                                tat: name + ":0",
                                             },
                                         });
                                     }
+                                });
+                                stateNode.setState({
+                                    crypto: stateNode.state.crypto + totalStolenCrypto,
+                                    crypto2: stateNode.state.crypto + totalStolenCrypto,
+                                });
+                                stateNode.props.liveGameController.setVal({
+                                    path: "c/" + stateNode.props.client.name,
+                                    val: {
+                                        b: stateNode.props.client.blook,
+                                        p: stateNode.state.password,
+                                        cr: stateNode.state.crypto + totalStolenCrypto,
+                                        tat: stateNode.props.client.name + ":" + totalStolenCrypto,
+                                    },
                                 });
                             }
                         });
@@ -1495,25 +1506,6 @@
                 },
             ],
             fish: [
-                {
-                    name: "Remove Distractions",
-                    description: "Removes the current distraction. (I have no clue if this works on the servers side!)",
-                    type: "toggle",
-                    enabled: false,
-                    data: null,
-                    run: function () {
-                        if (!this.enabled) {
-                            this.enabled = true;
-                            this.data = setInterval(() => {
-                                getStateNode().setState({ party: "" });
-                            }, 50);
-                        } else {
-                            this.enabled = false;
-                            clearInterval(this.data);
-                            this.data = null;
-                        }
-                    },
-                },
                 {
                     name: "Frenzy",
                     description: "Sets everyone to frenzy mode.",
@@ -1615,6 +1607,56 @@
     }
                 },
                 {
+                    name: "Remove Distractions",
+                    description: "Removes the current distraction. (I have no clue if this works on the servers side!)",
+                    type: "toggle",
+                    enabled: false,
+                    data: null,
+                    run: function () {
+                        if (!this.enabled) {
+                            this.enabled = true;
+                            this.data = setInterval(() => {
+                                getStateNode().setState({ party: "" });
+                            }, 50);
+                        } else {
+                            this.enabled = false;
+                            clearInterval(this.data);
+                            this.data = null;
+                        }
+                    },
+                },
+                {
+                    name: "Spaz Distractions",
+    description: "Rapidly sends random distractions in a loop!",
+    type: "toggle",
+    enabled: false,
+    data: null,
+    distractions: ["Crab", "Jellyfish", "Frog", "Pufferfish", "Octopus", "Narwhal", "Megalodon", "Blobfish", "Baby Shark"],
+    run: function () {
+        if (!this.enabled) {
+            this.enabled = true;
+            this.data = setInterval(() => {
+                let stateNode = getStateNode();
+                let randomDistraction = this.distractions[Math.floor(Math.random() * this.distractions.length)];
+                
+                stateNode.props.liveGameController.setVal({
+                    path: `c/${stateNode.props.client.name}`,
+                    val: {
+                        b: stateNode.props.client.blook,
+                        w: stateNode.state.weight,
+                        f: randomDistraction,
+                        s: true,
+                    },
+                });
+            }, 50);
+        } else {
+            this.enabled = false;
+            clearInterval(this.data);
+            this.data = null;
+        }
+    }
+                },
+                {
                     name: "Send Distraction",
                     description: "Sends a distraction to everyone.",
                     inputs: [
@@ -1637,42 +1679,6 @@
                             },
                         });
                     },
-                },
-                {
-                    name: "Spaz Distractions",
-    description: "Rapidly sends and removes random distractions in a loop!",
-    type: "toggle",
-    enabled: false,
-    data: null,
-    distractions: ["Crab", "Jellyfish", "Frog", "Pufferfish", "Octopus", "Narwhal", "Megalodon", "Blobfish", "Baby Shark"],
-    run: function () {
-        if (!this.enabled) {
-            this.enabled = true;
-            this.data = setInterval(() => {
-                let stateNode = getStateNode();
-                let randomDistraction = this.distractions[Math.floor(Math.random() * this.distractions.length)];
-                
-                stateNode.props.liveGameController.setVal({
-                    path: `c/${stateNode.props.client.name}`,
-                    val: {
-                        b: stateNode.props.client.blook,
-                        w: stateNode.state.weight,
-                        f: randomDistraction,
-                        s: true,
-                    },
-                });
-                
-                setTimeout(() => {
-                    stateNode.setState({ party: "" });
-                }, 1500);
-                
-            }, 1600);
-        } else {
-            this.enabled = false;
-            clearInterval(this.data);
-            this.data = null;
-        }
-    }
                 },
                 {
                     name: "Set Lure",
@@ -3600,16 +3606,17 @@
             if (char == "/" && last == "*") break;
             last = char;
         }
-        let _, time = timeProcessed, error = "There was an error checking for script updates. Run cheat anyway?";
+        /*let _, time = timeProcessed, error = "There was an error checking for script updates. Run cheat anyway?";
         try {
             [_, time, error] = decode.match(/LastUpdated: (.+?); ErrorMessage: "((.|\n)+?)"/);
         } catch (e) {}
-        if ((latestProcess = parseInt(time)) <= timeProcessed || iframe.contentWindow.confirm(error)) cheat();
+        if ((latestProcess = parseInt(time)) <= timeProcessed || iframe.contentWindow.confirm(error))*/
+        cheat();
     }
     img.onerror = img.onabort = () => {
         img.onerror = img.onabort = null;
         cheat();
-        let iframe = document.querySelector("iframe");
-        iframe.contentWindow.alert("It seems the GitHub is either blocked or down.\n\nIf it's NOT blocked, join the Discord server for updates\nhttps://discord.gg/jHjGrrdXP6\n(The cheat will still run after this alert)")
+        //let iframe = document.querySelector("iframe");
+        //iframe.contentWindow.alert("It seems the GitHub is either blocked or down.\n\nIf it's NOT blocked, join the Discord server for updates\nhttps://discord.gg/jHjGrrdXP6\n(The cheat will still run after this alert)")
     }
 })();
