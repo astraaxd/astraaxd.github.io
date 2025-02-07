@@ -1,13 +1,24 @@
 /**
- * AstraaXD's Blooket GUI
- * Copyright (C) 2023-present 05Konz (and i guess astraa?)
- *
- *
- * idk man, this is just an edited version of 05Konz blooket GUI
- *
+ * @license AGPL-3.0
+ * Blooket Cheats
+ * Copyright (C) 2023-present 05Konz
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * Source: https://github.com/Blooket-Council/Blooket-Cheats 05konz994@gmail.com
 */
 
-// P.S: The update checker isn't in this GUI, since the update checker broke it before!!!
+/* THE UPDATE CHECKER IS ADDED DURING COMMIT PREP, THERE MAY BE REDUNDANT CODE, DO NOT TOUCH */
 
 (() => {
     let iframe = document.querySelector("iframe");
@@ -137,7 +148,7 @@
                     createElement("div", {
                         id: "backgroundImage",
                         style: {
-                            backgroundImage: "url(https://ac.blooket.com/dashboard/65a43218fd1cabe52bdf1cda34613e9e.png)",
+                            //backgroundImage: "url(https://ac.blooket.com/dashboard/65a43218fd1cabe52bdf1cda34613e9e.png)",
                             display: "block",
                             height: "200%",
                             position: "absolute",
@@ -218,7 +229,7 @@
                         fontWeight: "700",
                         userSelect: "text",
                     },
-                    innerHTML: "GitHub - AstraaXD\nv1.1.0",
+                    innerHTML: "GitHub - AstraaXD\n  \n  \n  v1.1.0",
                     onclick: () => window.open("https://github.com/AstraaXD/", "_blank").focus(),
                 }),
                 (controlButtons = createElement(
@@ -640,7 +651,7 @@
                                         document.querySelectorAll("[class*='answerContainer']")[ind].click();
                                     } else document.querySelector("[class*='feedback'], [id*='feedback']").firstChild.click();
                                 } else Object.values(document.querySelector("[class*='typingAnswerWrapper']"))[1].children._owner.stateNode.sendAnswer(Question.answers[0]);
-                            }, 50);
+                            }, 1);
                         } else {
                             this.enabled = false;
                             clearInterval(this.data);
@@ -671,7 +682,7 @@
                                     ind++;
                                     document.querySelector("[class*='answersHolder'] :nth-child(" + ind + ") > div").style.backgroundColor = found ? "rgb(0, 207, 119)" : "rgb(189, 15, 38)";
                                 }
-                            }, 50);
+                            }, 1);
                         } else {
                             this.enabled = false;
                             clearInterval(this.data);
@@ -705,7 +716,7 @@
                                     ind++;
                                     if (found) document.querySelector("[class*='answersHolder'] :nth-child(" + ind + ") > div").style.boxShadow = "unset";
                                 }
-                            }, 50);
+                            }, 1);
                         } else {
                             this.enabled = false;
                             clearInterval(this.data);
@@ -1521,8 +1532,8 @@
                             val: {
                                 b: stateNode.props.client.blook,
                                 w: stateNode.state.weight,
-                                f: "Normal",
-                                s: false,
+                                f: "",
+                                s: true,
                             },
                         });
                     },
@@ -1541,7 +1552,6 @@
                 let clientPath = `c/${stateNode.props.client.name}`;
                 
                 stateNode.props.liveGameController.getVal({ path: clientPath }, (currentVal) => {
-                    if (!currentVal || currentVal.f !== "Frenzy") {
                         stateNode.props.liveGameController.setVal({
                             path: clientPath,
                             val: {
@@ -1551,7 +1561,6 @@
                                 s: true,
                             },
                         });
-                    }
                 });
             }, 50);
         } else {
@@ -1575,17 +1584,15 @@
                 let clientPath = `c/${stateNode.props.client.name}`;
                 
                 stateNode.props.liveGameController.getVal({ path: clientPath }, (currentVal) => {
-                    if (currentVal && currentVal.f === "Frenzy") {
                         stateNode.props.liveGameController.setVal({
                             path: clientPath,
                             val: {
                                 b: stateNode.props.client.blook,
                                 w: stateNode.state.weight,
-                                f: "Normal",
-                                s: false,
+                                f: "",
+                                s: true,
                             },
                         });
-                    }
                 });
             }, 50);
         } else {
@@ -1671,7 +1678,7 @@
                 },
                 {
                     name: "Set Lure",
-                    description: "Sets your current fishing lure. (ranges from 1 - 5)",
+                    description: "Sets your clients current fishing lure. (ranges from 1 - 5)",
                     inputs: [
                         {
                             name: "Lure (1 - 5)",
@@ -3032,15 +3039,15 @@
                             return alert("Invalid JSON provided");
                         }
                         theme = {
-                            backgroundColor: "rgb(11, 194, 207)",
-                            infoColor: "#9a49aa",
-                            cheatList: "#9a49aa",
+                            backgroundColor: "rgb(0, 0, 0)",
+                            infoColor: "#00779c",
+                            cheatList: "#5149aa",
                             defaultButton: "#9a49aa",
-                            disabledButton: "#A02626",
+                            disabledButton: "#c22d2d",
                             enabledButton: "#47A547",
                             textColor: "white",
-                            inputColor: "#7a039d",
-                            contentBackground: "rgb(64, 17, 95)",
+                            inputColor: "#2c23a1",
+                            contentBackground: "rgb(255, 255, 255)",
                             ...JSON.parse(theme),
                         };
                         Settings.setItem("theme", theme);
