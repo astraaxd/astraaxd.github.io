@@ -651,7 +651,7 @@
                                         document.querySelectorAll("[class*='answerContainer']")[ind].click();
                                     } else document.querySelector("[class*='feedback'], [id*='feedback']").firstChild.click();
                                 } else Object.values(document.querySelector("[class*='typingAnswerWrapper']"))[1].children._owner.stateNode.sendAnswer(Question.answers[0]);
-                            }, 1);
+                            }, 0);
                         } else {
                             this.enabled = false;
                             clearInterval(this.data);
@@ -682,7 +682,7 @@
                                     ind++;
                                     document.querySelector("[class*='answersHolder'] :nth-child(" + ind + ") > div").style.backgroundColor = found ? "rgb(0, 207, 119)" : "rgb(189, 15, 38)";
                                 }
-                            }, 1);
+                            }, 0);
                         } else {
                             this.enabled = false;
                             clearInterval(this.data);
@@ -716,7 +716,7 @@
                                     ind++;
                                     if (found) document.querySelector("[class*='answersHolder'] :nth-child(" + ind + ") > div").style.boxShadow = "unset";
                                 }
-                            }, 1);
+                            }, 0);
                         } else {
                             this.enabled = false;
                             clearInterval(this.data);
